@@ -1,7 +1,12 @@
 #include <stdio.h>
 
+// TABULEIRO
 #define LINHA 10
 #define COLUNA 10
+
+// HABILIDADES
+#define LINHAC 3
+#define COLUNAC 5
 
 int main()
 {
@@ -121,8 +126,8 @@ int main()
     }
 
     // navio diagonal 2
-    int linhaD2 = 9;
-    int colunaD2 = 9;
+    int linhaD2 = 5;
+    int colunaD2 = 2;
 
     if (linhaD2 >= 0 && linhaD2 < LINHA && colunaD2 >= 0 && colunaD2 < COLUNA)
     {
@@ -151,6 +156,100 @@ int main()
     else
     {
         printf("Erro no navio diagonal 2 \n");
+    }
+
+    //------CONE---------
+
+    // posicoes do cone
+    int linhaTabuCone = 7;
+    int colunaTabuCone = 3;
+
+    // criacao do cone
+    int cone[LINHAC][COLUNAC] = {
+        {0, 0, 5, 0, 0},
+        {0, 5, 5, 5, 0},
+        {5, 5, 5, 5, 5}};
+
+    // valida cone nos limites do tabuleiro
+    if (linhaTabuCone >= 0 && linhaTabuCone + 2 < LINHA && colunaTabuCone - 2 >= 0 && colunaTabuCone + 2 < COLUNA)
+    {
+        // aplica no tabuleiro
+        tabuleiro[linhaTabuCone][colunaTabuCone] = 5;
+
+        for (j = 0; j < 3; j++)
+        {
+            tabuleiro[linhaTabuCone + 1][(colunaTabuCone - 1) + j] = 5;
+        }
+        for (j = 0; j < COLUNAC; j++)
+        {
+            tabuleiro[linhaTabuCone + 2][(colunaTabuCone - 2) + j] = 5;
+        }
+    }
+    else
+    {
+        printf("Posicao do cone invalida");
+    }
+
+    //-----CRUZ-------
+
+    int linhaTabuCruz = 6;
+    int colunaTabuCruz = 7;
+
+    // criacao do cone
+    int cruz[LINHAC][COLUNAC] = {
+        {0, 0, 5, 0, 0},
+        {5, 5, 5, 5, 5},
+        {0, 0, 5, 0, 0}};
+
+    // valida cruz nos limites do tabuleiro
+    if (linhaTabuCruz - 1 >= 0 && linhaTabuCruz + 1 < LINHA && colunaTabuCruz - 2 >= 0 && colunaTabuCruz + 2 < COLUNA)
+    {
+        // Aplica primeira linha
+        tabuleiro[linhaTabuCruz - 1][colunaTabuCruz] = 5;
+
+        // aplica segunda linha
+        for (j = 0; j < COLUNAC; j++)
+        {
+            tabuleiro[linhaTabuCruz][(colunaTabuCruz - 2) + j] = 5;
+        }
+
+        // aplica terceira linha
+        tabuleiro[linhaTabuCruz + 1][colunaTabuCruz] = 5;
+    }
+    else
+    {
+        printf("Posicao da cruz invalida");
+    }
+
+    //-----OCTAEDRO-------
+    int linhaTabuOcta = 2;
+    int colunaTabuOcta = 7;
+
+    // criacao do octaedro
+    int octa[LINHAC][COLUNAC] = {
+        {0, 0, 5, 0, 0},
+        {0, 5, 5, 5, 0},
+        {0, 0, 5, 0, 0}};
+
+    // valida octaedro nos limites do tabuleiro
+    if (linhaTabuOcta - 1 >= 0 && linhaTabuOcta + 1 < LINHA && colunaTabuOcta - 1 >= 0 && colunaTabuOcta + 1 < COLUNA)
+    {
+
+        // Aplica primeira linha
+        tabuleiro[linhaTabuOcta - 1][colunaTabuOcta] = 5;
+
+        // Aplica segunda linha
+        for (j = 0; j < 3; j++)
+        {
+            tabuleiro[linhaTabuOcta][(colunaTabuOcta - 1) + j] = 5;
+        }
+
+        // aplica terceira linha
+        tabuleiro[linhaTabuOcta + 1][colunaTabuOcta] = 5;
+    }
+    else
+    {
+        printf("Posicao do octaedro invalida");
     }
 
     // exibe o tabuleiro
